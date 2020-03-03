@@ -9,61 +9,63 @@
 
 <body>
 	<h1>mushroom collector</h1>
-
 	<div class="basket">
 		<h2 id="bHeading">basket</h2>
-		<ol>
-			<li><img src=""></li>
-			<li><img src=""></li>
-			<li><img src=""></li>
-			<li><img src=""></li>
-			<li><img src=""></li>
-			<li><img src=""></li>
-		</ol>
+		<table id="basketBody">
+			<tr> 
+				<td> <img class="b" id="b0" src="images/placeholder.png"> </td>
+				<td> <img class="b" id="b1" src="images/placeholder.png"> </td>
+				<td> <img class="b" id="b2" src="images/placeholder.png"> </td>
+			</tr>
+			<tr> 
+				<td> <img class="b" id="b3" src="images/placeholder.png"> </td>
+				<td> <img class="b" id="b4" src="images/placeholder.png"> </td>
+				<td> <img class="b" id="b5" src="images/placeholder.png"> </td>
+			</tr>
+		</table>
+		<button id="scoreButton">Get score!</button>
 	</div>
 
-	<div class="forest floor">
-		<table>
+	<div class="forest-floor">
+		<table id="forest-table">
 			<tr>
-				<td> <img id="sq0" src=""> </td>
-				<td> <img id="sq1" src=""> </td>
-				<td> <img id="sq2" src=""> </td>
-				<td> <img id="sq3" src=""> </td>
-				<td> <img id="sq4" src=""> </td>
+				<td class="f"> <img id="sq0" src=""> </td>
+				<td class="f"> <img id="sq1" src=""> </td>
+				<td class="f"> <img id="sq2" src=""> </td>
+				<td class="f"> <img id="sq3" src=""> </td>
+				<td class="f"> <img id="sq4" src=""> </td>
 			</tr>
 			<tr>
-				<td> <img id="sq5" src=""> </td>
-				<td> <img id="sq6" src=""> </td>
-				<td> <img id="sq7" src=""> </td>
-				<td> <img id="sq8" src=""> </td>
-				<td> <img id="sq9" src=""> </td>
+				<td class="f"> <img id="sq5" src=""> </td>
+				<td class="f"> <img id="sq6" src=""> </td>
+				<td class="f"> <img id="sq7" src=""> </td>
+				<td class="f"> <img id="sq8" src=""> </td>
+				<td class="f"> <img id="sq9" src=""> </td>
 			</tr>
 		</table>
 	</div>
 
 	<div id="information" class="modal">
-
 	  <div class="modal-content">
 	    <h2 id="info-name">Sample Header</h2>
 	    <img id="info-img" src="">
 	    <p id="info-text"> Sample Text</p>
 	    <button id="add-button"> Add to basket?</button>
+	    <button id="remove"> Remove from basket?</button>
 	    <button id="ignore"> Leave it alone.</button>
 	  </div>
-
 	</div>
 
 	<div id="tally" class="modal">
-
 	  <div class="modal-content">
-	    <h2>Final Score</h2>
-	   <!--  put a table or something here, idk -->
+	  	<h2>Basket Contents</h2>
+	   	<div id="score-breakdown">   	
+	   	</div>
+	   	<h2 id="final-score">a number</h2>
 	  </div>
-
-	</div>
-
+	</div>	
 </body>
 
-<script type="text/javascript" src="js/mushroom.js"></script>
+<script defer type="text/javascript" src="js/mushroom.js"></script>
 
 </html>

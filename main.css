@@ -14,59 +14,89 @@ h1, h2 {
 h1 { /*header for whole page*/
 	width: 300px;
 	text-align: center;
+	color: maroon;
+	margin-left: 5vw;
 }
 
-.basket { 
+button {
+	font-family: 'Glass Antiqua';
+	border: medium solid AntiqueWhite;
+	color: maroon;
+	background-color: peru;
+	font-weight: bold;
+	font-size: 25px;
+	border-radius: 20px;
+	margin: 25px;
+	padding: 20px;
+}
+
+/* basket stuff*/
+
+.basket { /*this keeps the basket on the left */
 	display:flex;
 	flex-direction: column;
 	align-items: flex-end;
 }
 
 #bHeading { /*heading for just the basket*/
-	width: 100px;
+	width: 6vw;
 	height: 25px;
-	margin: 0px 75px;
+	color: maroon;
+	background-color: BurlyWood;
+	margin-right: 7vw;
+	/*margin: 0px 125px;*/
 	text-align: center;
 }
 
-li img {
-	height: 50px;
-}
-
-ol {
+#basketBody {
+	width: 21vw;
+	height: 20vh;
 	border: medium solid AntiqueWhite;
+	border-radius: 25px;
 	background-color: BurlyWood;
-	width: 250px;
-	padding: 10px;
-	border-radius: 25px;
-	list-style-type:none;
-
-	display:flex;
-	flex-direction: row;
-	flex-wrap: wrap;
 }
 
-li {
+.b {
 	border: medium solid AntiqueWhite;
+	width: 6vw;
 	border-radius: 25px;
-	padding: 5px;
-	margin: 10px;
 }
 
-td {
-	width: 20vw;
-	height: 200px;
+#scoreButton {
+	display:none;
+	margin-right: 7vw;
+	width: 8vw;
+	z-index: 1;
 }
 
-td img {
-	height: 80px;
+/*forest floor*/
+.forest-floor {
+	position: fixed;
+  	bottom: 0;
+  	right: 5vw;
+}
+
+#forest-table {
+	width: 90vw;
+	height: 50vh;
+	/*border: medium solid AntiqueWhite; */
+}
+
+.f { 
+	/*border: medium solid AntiqueWhite;*/
+	width:18vh;
+	height:25vh;
+}
+
+ img {
+	height: 100px;
 }
 
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 2; /* Sit on top */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -88,11 +118,27 @@ td img {
   text-align: center;
 }
 
-button {
-	font-family: 'Glass Antiqua';
-	border: medium solid Red;
-	border-radius: 20px;
-	margin: 25px;
-	padding: 20px;
+#remove {
+	display: none;
 }
 
+/*score box*/
+
+#score-breakdown {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+#score-breakdown img {
+	width: 20%;
+	margin: 0px 30px 0px 30px;
+}
+
+#score-breakdown h1 {
+	width: 25%;
+	margin: 0px 10px;
+}
+
+#info-img {
+	height: 25vh;
+}

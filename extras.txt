@@ -1,0 +1,20 @@
+.basketBody {
+	border: medium solid AntiqueWhite;
+	background-color: BurlyWood;
+	width: 250px;
+	height: 250px;
+	padding: 10px;
+	border-radius: 25px;
+
+	display:flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+/*.basketBody tr {
+	border: medium solid AntiqueWhite;
+	border-radius: 25px;
+	padding: 5px;
+	margin: 10px;
+}
+*/
