@@ -86,9 +86,7 @@ let inBasket = [];
 let floor = [];
 
 // CACHED ELEMENTS
-let images = document.querySelectorAll('.f > img');
-let table = document.querySelector('table');
-// basket stuff
+let floorDiv = document.querySelector('.forest-floor');
 let basket = document.querySelectorAll('.b');
 
 // info stuff
@@ -113,11 +111,7 @@ let itemization = document.getElementById("score-breakdown");
 let currentItem;
 
 // EVENT LISTENERS
-// table.addEventListener('click', storeId);
-// table.addEventListener('click', pick);
-images.forEach((ele) => {
-	ele.addEventListener('click', pick);
-});
+
 basket.forEach((ele) => {
 	ele.addEventListener('click', examine);
 });
@@ -138,33 +132,52 @@ function tutorial () {
 	createFloor();
 }
 
-function createFloor () {
-	// functions to reset game
+// functions to reset game
+function reset () {
 	floor = [];
 	inBasket = [];
 	tally.style.display = "none";
-	music.play();
+	// clear out basker and floorDiv 
 	for (item of basket) {
 		item.setAttribute('src', "images/placeholder.png");
 		}
-	let bindex =Math.floor( Math.random() * (backgrounds.length) );
-	let background =  backgrounds[bindex];
-	let setting = `url("${ background }")` ;
-	console.log(setting);
-	document.querySelector('body').style.backgroundImage = setting ;
-	
-	// create new set of pickables 
-	for (x = 0; x < 10; x++) {
-	// pick a random number from within the length of the array
+	while (floorDiv.hasChildNodes()) {
+		floorDiv.removeChild(floorDiv.childNodes[0]);
+	}
+}
+
+// create new set of pickables 
+function createPickables () {
+	for (x = 0; x < 15; x++) {
 	let index = Math.floor(Math.random() * (items.length));
 	// add that item to the forest floor
 		floor.push(items[index]);
 		}
-	// return the array of objects
+}
+
+function createFloor () {
+	reset ();
+	createPickables();
+	
+	// functions to choose random game background 
+	let randomBackground = backgrounds[Math.floor( Math.random() * (backgrounds.length) )];
+	let setting = `url("${randomBackground}")` ;
+	document.querySelector('body').style.backgroundImage = setting ;
+	
+	// add an picture of each element to the forest floor 
 	floor.forEach ((ele, idx) => { 
-		let picture = ele.image;
-		images[idx].setAttribute('src', picture);
+		let pickable = document.createElement('img');
+		pickable.setAttribute('src', ele.image);
+		pickable.setAttribute('id', "sq" + idx);
+		document.querySelector('.forest-floor').appendChild(pickable);
 	});
+
+	let images = document.querySelectorAll('.forest-floor > img');
+	images.forEach((ele) => {
+	ele.addEventListener('click', pick);
+	});
+
+	music.play();
  }
 
 // creates a popup window and populates it with info about the clicked item
@@ -212,10 +225,10 @@ function addBasket () {
 	document.querySelector(reconstructedId).setAttribute("src", ""); 
 	//add item to basket (add item and display image)
 		// cycle through basket
-		for (item of basket) {
-			if (item.getAttribute('src') == "images/placeholder.png") {
+		for (spot of basket) {
+			if (spot.getAttribute('src') == "images/placeholder.png") {
 			inBasket.push(floor[currentItem]);
-			item.setAttribute('src', floor[currentItem].image);
+			spot.setAttribute('src', floor[currentItem].image);
 			break;
 			}
 		}

@@ -31,6 +31,10 @@ button {
 	padding: 15px;
 }
 
+ img {
+	height: 100px;
+}
+
 /* basket stuff*/
 
 .basket { /*this keeps the basket on the left */
@@ -73,25 +77,21 @@ button {
 /*forest floor*/
 .forest-floor {
 	position: fixed;
-  	bottom: 0;
+  	bottom: 2vw;
   	right: 5vw;
-}
-
-#forest-table {
-	width: 90vw;
+  	width: 90vw;
 	height: 50vh;
-	/*border: medium solid AntiqueWhite; */
+
+	display: flex;
+	flex-wrap: wrap-reverse;
+	justify-content: space-between;
 }
 
-.f { 
-	/*border: medium solid AntiqueWhite;*/
-	width:18vh;
-	height:25vh;
+.forest-floor img {
+	margin: 0 5vw;
 }
 
- img {
-	height: 100px;
-}
+
 
 /* The Modal (background) */
 .modal {

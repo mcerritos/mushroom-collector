@@ -17,4 +17,59 @@
 	padding: 5px;
 	margin: 10px;
 }
-*/
+
+// copy paste this back into forest floor
+
+.forest-floor {
+	position: fixed;
+  	bottom: 0;
+  	right: 5vw;
+}
+
+#forest-table {
+	width: 90vw;
+	height: 50vh;
+	/*border: medium solid AntiqueWhite; */
+}
+
+.f { 
+	/*border: medium solid AntiqueWhite;*/
+	width:18vh;
+	height:25vh;
+}
+
+// this is the html for the table
+
+<table id="forest-table">
+			<tr>
+				<td class="f"> <img id="sq0" src=""> </td>
+				<td class="f"> <img id="sq1" src=""> </td>
+				<td class="f"> <img id="sq2" src=""> </td>
+				<td class="f"> <img id="sq3" src=""> </td>
+				<td class="f"> <img id="sq4" src=""> </td>
+			</tr>
+			<tr>
+				<td class="f"> <img id="sq5" src=""> </td>
+				<td class="f"> <img id="sq6" src=""> </td>
+				<td class="f"> <img id="sq7" src=""> </td>
+				<td class="f"> <img id="sq8" src=""> </td>
+				<td class="f"> <img id="sq9" src=""> </td>
+			</tr>
+		</table>
+
+//
+adding items to grid 
+
+// return the array of objects
+	floor.forEach ((ele, idx) => { 
+		let picture = ele.image;
+		images[idx].setAttribute('src', picture);
+	});
+
+// table event listeners 
+
+// table.addEventListener('click', storeId);
+// table.addEventListener('click', pick);
+// images.forEach((ele) => {
+// 	ele.addEventListener('click', pick);
+// });
