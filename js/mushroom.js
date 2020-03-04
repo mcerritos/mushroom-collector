@@ -5,7 +5,7 @@ let items = [
 		name: "Shiitake Mushroom", 
 		image: "images/Shiitake.png",
 		description: "It has has dark gills and a brown cap.",
-		value: 2
+		value: 1
 	}, {
 		name: "Portabello Mushroom",
 		image: "images/portabello.png",
@@ -42,6 +42,21 @@ let items = [
 		description: "This brightly colored mushroom is associated with rotting wood.",
 		value: 1
 	}, {
+		name: "Porcini",
+		image: "images/porcini.png",
+		description: "This popular mushroom has a rich, nutty taste.",
+		value: 2
+	}, {
+		name: "Black Trumpet",
+		image: "images/black trumpet.png",
+		description: "This dark mushroom can be difficult to spot.",
+		value: 1
+	}, {
+		name: "Oyster Mushroom",
+		image: "images/oyster.png",
+		description: "This sweet mushroom smells faintly of anise.",
+		value: 1
+	}, {
 		name: "Grass",
 		image: "images/grass.png",
 		description: "This is grass.",
@@ -64,6 +79,8 @@ let items = [
 	}
 ];
 
+let backgrounds = ["images/log.jpg", "images/redgreen (1).png", "images/forest scene.jpg"];
+
 // STATE VARIABLES 
 let inBasket = [];
 let floor = [];
@@ -77,15 +94,22 @@ let basket = document.querySelectorAll('.b');
 // info stuff
 let info = document.getElementById("information");
 let tally = document.getElementById("tally");
+let start = document.getElementById("start");
 let name = document.getElementById("info-name");
 let infoImg = document.getElementById("info-img");
 let infoText = document.getElementById("info-text");
 
 //buttons
+let startButton = document.getElementById("begin");
 let addButton = document.getElementById("add-button");
 let removeButton = document.getElementById("remove");
 let ignoreButton = document.getElementById("ignore");
 let scoreButton = document.getElementById('scoreButton');
+let repeatButton = document.getElementById('repeat');
+
+let music = document.querySelector('audio');
+let body = document.querySelector('body');
+let itemization = document.getElementById("score-breakdown");
 let currentItem;
 
 // EVENT LISTENERS
@@ -97,18 +121,43 @@ images.forEach((ele) => {
 basket.forEach((ele) => {
 	ele.addEventListener('click', examine);
 });
+
+startButton.addEventListener('click', tutorial);
 addButton.addEventListener('click', addBasket);
 removeButton.addEventListener('click', removeBasket);
 ignoreButton.addEventListener('click', goBack);
 scoreButton.addEventListener('click', getScore);
+repeatButton.addEventListener('click', createFloor);
+
+window.onload = function(){start.style.display = "block"};
 
 // FUNCTIONS
 
+function tutorial () {
+	start.style.display = "none";
+	createFloor();
+}
+
 function createFloor () {
+	// functions to reset game
+	floor = [];
+	inBasket = [];
+	tally.style.display = "none";
+	music.play();
+	for (item of basket) {
+		item.setAttribute('src', "images/placeholder.png");
+		}
+	let bindex =Math.floor( Math.random() * (backgrounds.length) );
+	let background =  backgrounds[bindex];
+	let setting = `url("${ background }")` ;
+	console.log(setting);
+	document.querySelector('body').style.backgroundImage = setting ;
+	
+	// create new set of pickables 
 	for (x = 0; x < 10; x++) {
 	// pick a random number from within the length of the array
 	let index = Math.floor(Math.random() * (items.length));
-	// add that item to a hand
+	// add that item to the forest floor
 		floor.push(items[index]);
 		}
 	// return the array of objects
@@ -117,8 +166,6 @@ function createFloor () {
 		images[idx].setAttribute('src', picture);
 	});
  }
-
-createFloor();
 
 // creates a popup window and populates it with info about the clicked item
 function pick(event) {
@@ -150,12 +197,12 @@ function pick(event) {
   if (event.target == info) {
     info.style.display = "none";
   }
-}
-
- window.onclick = function(event) {
-  if (event.target == tally) {
-    tally.style.display = "none";
+  else if (event.target == start) {
+  	start.style.display = "none";
   }
+  else if (event.target == tally) {
+  	tally.style.display = "none";
+  }  
 }
 
 // adds items to basket and removes them from forest floor
@@ -167,8 +214,8 @@ function addBasket () {
 		// cycle through basket
 		for (item of basket) {
 			if (item.getAttribute('src') == "images/placeholder.png") {
-			inBasket.push(items[currentItem]);
-			item.setAttribute('src', items[currentItem].image);
+			inBasket.push(floor[currentItem]);
+			item.setAttribute('src', floor[currentItem].image);
 			break;
 			}
 		}
@@ -196,17 +243,23 @@ function goBack () {
 // creates a modal displaying your score
 function getScore () {
 	let score = 0;
+	// clear out any previous elements 
+	while (itemization.hasChildNodes()) {
+		itemization.removeChild(itemization.childNodes[0]);
+	}
+	//
 	inBasket.forEach((ele) => {
 		score += ele.value;
+		//
 		let img = document.createElement('img');
 		img.setAttribute('src', ele.image);
 		document.getElementById('score-breakdown').appendChild(img);
 		// show name
-		let name = document.createElement('h1');
+		let name = document.createElement('h2');
 		name.innerText = ele.name;
 		document.getElementById('score-breakdown').appendChild(name);
 		// create show value
-		let value = document.createElement('h1');
+		let value = document.createElement('h2');
 		value.innerText = ele.value;
 		document.getElementById('score-breakdown').appendChild(value);
 

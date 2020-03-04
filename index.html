@@ -8,7 +8,9 @@
 </head>
 
 <body>
-	<h1>mushroom collector</h1>
+	<audio autoplay loop> <source src="hidden_cascades_loop.wav" type="audio/wav"> </audio>
+	<div id="scream">
+	<h1> 🍄mushroom collector🍄</h1>
 	<div class="basket">
 		<h2 id="bHeading">basket</h2>
 		<table id="basketBody">
@@ -58,14 +60,27 @@
 
 	<div id="tally" class="modal">
 	  <div class="modal-content">
-	  	<h2>Basket Contents</h2>
+	  	<h2> 🍄Basket Contents🍄</h2>
 	   	<div id="score-breakdown">   	
 	   	</div>
 	   	<h2 id="final-score">a number</h2>
+	   	<button id="repeat">Play again?</button>
 	  </div>
 	</div>	
-</body>
+
+	<div id="start" class="modal">
+	  <div id="startscreen"   class="modal-content">
+	  	<h2>🍄Before You Play🍄</h2>
+	   	<h5 class="tutorial"> Many plants can be found deep in the woods. </h5>
+	   	<h5 class="tutorial"> Which are dangerous and which are not? </h5>
+	   	<h5 class="tutorial"> Click on a plant to examine it, but be warned: not everything you find should be eaten. </h5>
+	   	<button id="begin"> Venture into the woods?</button>
+	  </div>
+	</div>
+	</div>	
 
 <script defer type="text/javascript" src="js/mushroom.js"></script>
+
+</body>
 
 </html>
