@@ -32,8 +32,18 @@ button {
 }
 
  img {
-	height: 100px;
+	height: 8vh;
 }
+
+/*timer stuff*/
+
+#seconds {
+	display: inline;
+	width: 5vw;
+	margin-left: 13vw;
+	margin-top: 2vw;
+}
+
 
 /* basket stuff*/
 
@@ -74,13 +84,27 @@ button {
 	z-index: 1;
 }
 
+@keyframes flash {
+	0% { box-shadow: 0 0 10vw white; }
+	25% { box-shadow: 0 0 10vw orangered; }
+    50% { box-shadow: 0 0 20vw red; color: white; }
+    75% { box-shadow: 0 0 10vw orangered; }
+    100% { box-shadow: 0 0 10vw white; }
+}
+
+.active {
+    animation-name: flash;
+	animation-duration: 4s;
+	animation-iteration-count: infinite;
+}
+
 /*forest floor*/
 .forest-floor {
 	position: fixed;
   	bottom: 2vw;
   	right: 5vw;
-  	width: 90vw;
-	height: 50vh;
+  	width: 94vw;
+	height: 55vh;
 
 	display: flex;
 	flex-wrap: wrap-reverse;
@@ -88,9 +112,25 @@ button {
 }
 
 .forest-floor img {
-	margin: 0 5vw;
+	filter: opacity(90%);
+	filter: brightness(60%);
 }
 
+.forest-floor img:hover {
+	filter: opacity(100%);
+	filter: brightness(100%);
+}
+.v-offset {
+	margin: -3vh 5vw ;
+}
+
+.h-offset {
+	margin: 0vh -1vw ;
+}
+
+.no-offset {
+	margin: 5vh 5vw ;
+}
 
 
 /* The Modal (background) */
