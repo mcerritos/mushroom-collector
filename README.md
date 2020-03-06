@@ -6,5 +6,6 @@
 
 ### This game constructed with help from the w3 schools modal tutorial. 
 
-![start screen](./images/Screenshot from 2020-03-06 11-25-24.png)
-![score tally](./images/Screenshot from 2020-03-06 11-28-04.png)
+![start screen](./images/startscreen.png)
+![inspect item](./images/inspectitem.png)
+![finalscore](./images/finalscore.png)
