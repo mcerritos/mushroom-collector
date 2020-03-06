@@ -10,8 +10,8 @@
 <body>
 	<audio autoplay loop> <source src="hidden_cascades_loop.wav" type="audio/wav"> </audio>
 
-	<h1>🍄mushroom collector🍄</h1>
-	<button id="log">Item Log</button>
+	<h1>🍄Mushroom Collector🍄</h1>
+	<button id="log">item log</button>
 
 	<div class="basket">
 		<h2 id="bHeading">basket</h2>
@@ -43,6 +43,7 @@
 	  </div>
 	</div>
 
+
 	<div id="tally" class="modal">
 	  <div class="modal-content">
 	  	<h2> 🍄Basket Contents🍄</h2>
@@ -57,10 +58,11 @@
 
 	<div id="logbook" class="modal">
 	  <div class="modal-content">
-	  	<h2> 🍄Item Log🍄</h2>
-	   	<div id="item-log">
+	  	<h2 id="log-heading"> 🍄Item Log🍄</h2>
+	   	<div id="item-log"> <!-- don't forget the children of this get deleted!!!  -->
 	   		<h2>You haven't picked any items yet.</h2>
 	   	</div>
+	   	<button id="thank">credits</button>
 	  </div>
 	</div>	
 
@@ -75,6 +77,14 @@
 	  </div>
 	</div>
 
+	<div id="credits" class="modal">
+	  <div id="bib" class="modal-content">
+	  	<h2>🍄credits🍄</h2>
+	   	<h3 class="citation"> Hidden Cascades is a song by Hunter Van Brocklin</h3>
+	   	<h3 class="citation"> You can find his soundcloud here. </h3>
+	   	<a class="citation" href="https://h-v-b.bandcamp.com/track/hidden-cascades"> Hidden Cascades 🎵</a>
+	  </div>
+	</div>
 		
 <script defer type="text/javascript" src="js/mushroom.js"></script>
 

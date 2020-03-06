@@ -131,6 +131,7 @@ let info = document.getElementById("information");
 let tally = document.getElementById("tally");
 let start = document.getElementById("start");
 let log = document.getElementById("logbook");
+let credits = document.getElementById("credits");
 
 // info stuff 
 let name = document.getElementById("info-name");
@@ -145,13 +146,13 @@ let ignoreButton = document.getElementById("ignore");
 let scoreButton = document.getElementById('score');
 let repeatButton = document.getElementById('repeat');
 let logButton = document.getElementById('log');
+let creditsButton = document.getElementById('thank');
 
 let music = document.querySelector('audio');
 let body = document.querySelector('body');
 let itemization = document.getElementById("score-breakdown");
 let entries = document.getElementById("item-log");
 let currentItem;
-let clock;
 
 // EVENT LISTENERS
 
@@ -165,6 +166,7 @@ ignoreButton.addEventListener('click', goBack);
 scoreButton.addEventListener('click', getScore);
 repeatButton.addEventListener('click', createFloor);
 logButton.addEventListener('click', openLog);
+creditsButton.addEventListener('click', openCredits);
 
 window.onload = function(){start.style.display = "block"};
 
@@ -227,7 +229,6 @@ function createFloor () {
 	reset ();
 	createPickables();
 	arrangeFloor();
-	// startTimer();
 	
 	// functions to choose random game background 
 	let randomBackground = backgrounds[Math.floor( Math.random() * (backgrounds.length) )];
@@ -290,6 +291,9 @@ function pick(event) {
   else if (event.target == log) {
   	log.style.display = "none";
   }  
+  else if (event.target == credits) {
+  	credits.style.display = "none";
+  }
 }
 
 // adds items to basket and removes them from forest floor
@@ -313,6 +317,7 @@ function addBasket () {
 	info.style.display = "none";
 }
 
+// removes an item from the basket
 function removeBasket () {
 	// remove item from list
 	inBasket.splice(currentItem, 1);
@@ -350,6 +355,7 @@ function openLog() {
 	log.style.display = "block";
 }
 
+// adds the first item of the basket to the item log
 function addEntry() {
 	// if first item of basket not in basket add to log
 	for (pickable of inBasket) {
@@ -358,6 +364,11 @@ function addEntry() {
 			return;
 		}
 	}
+}
+
+// opens the credits when the button is clicked 
+function openCredits() {
+	credits.style.display = "block";
 }
 
 // end of round scoring functions
