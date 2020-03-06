@@ -167,14 +167,14 @@ button {
 
 #score-breakdown img {
 	width: 20%;
-	height: 20%;
-	margin: 0px 25px 0px 25px;
+	height: 10vh;
+	margin: 0px 15px;
 }
 
 #score-breakdown h2 {
 	width: 20%;
 	margin: 0px 10px;
-	padding: 20px;
+	padding: 10px;
 }
 
 #info-img {
