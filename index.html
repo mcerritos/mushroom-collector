@@ -11,6 +11,7 @@
 	<audio autoplay loop> <source src="hidden_cascades_loop.wav" type="audio/wav"> </audio>
 
 	<h1>🍄mushroom collector🍄</h1>
+	<button id="log">Item Log</button>
 
 	<div class="basket">
 		<h2 id="bHeading">basket</h2>
@@ -26,7 +27,7 @@
 				<td> <img class="b" id="b5" src="images/placeholder.png"> </td>
 			</tr>
 		</table>
-		<button id="scoreButton">Get score!</button>	
+		<button id="score">Get score!</button>	
 	</div>
 
 	<div class="forest-floor"></div>
@@ -45,10 +46,21 @@
 	<div id="tally" class="modal">
 	  <div class="modal-content">
 	  	<h2> 🍄Basket Contents🍄</h2>
-	   	<div id="score-breakdown">   	
+	   	<div id="score-breakdown">
+	   		
 	   	</div>
 	   	<h2 id="final-score">a number</h2>
+	   	<h2 id="eval">an opinion</h2>
 	   	<button id="repeat">Play again?</button>
+	  </div>
+	</div>
+
+	<div id="logbook" class="modal">
+	  <div class="modal-content">
+	  	<h2> 🍄Item Log🍄</h2>
+	   	<div id="item-log">
+	   		<h2>You haven't picked any items yet.</h2>
+	   	</div>
 	  </div>
 	</div>	
 
@@ -62,6 +74,7 @@
 	   	<button id="begin"> Venture into the woods?</button>
 	  </div>
 	</div>
+
 		
 <script defer type="text/javascript" src="js/mushroom.js"></script>
 

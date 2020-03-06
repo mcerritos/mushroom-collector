@@ -4,22 +4,22 @@ let items = [
 	{
 		name: "Shiitake Mushroom", 
 		image: "images/Shiitake.png",
-		description: "It has has dark gills and a brown cap.",
+		description: "It has has dark gills and a brown cap. The stems of this mushroom are tough and woody.",
 		value: 1
 	}, {
 		name: "Portabello Mushroom",
 		image: "images/portabello.png",
-		description: "It has a wide, thick cap.",
+		description: "It has a wide, thick cap. In its smaller form, these are called button mushrooms.",
 		value: 1
 	}, {
-		name: "Amanita Mushroom", // poisonous
+		name: "Amanita Mushroom",
 		image: "images/amanita-mushroom.png",
 		description: "This colorful mushroom seems vaguely familiar.",
 		value: -2
 	}, {
 		name: "Morel",
 		image: "images/morchella.png",
-		description: "This mushroom smells like fresh milk.",
+		description: "This mushroom smells like fresh milk. In Kentucky, they call them Hickory Chickens.",
 		value: 1
 	}, {
 		name: "False Morel",
@@ -29,12 +29,12 @@ let items = [
 	}, {
 		name: "Chantarelle", 
 		image: "images/chanterelle-mushrooms-1-1 (1).png",
-		description: "It smells like apricots.",
+		description: "It smells like apricots and has a mild peppery taste.",
 		value: 2
 	}, {
-		name: "Shaggy Mane",
+		name: "Inky Cap",
 		image: "images/shaggymane.png",
-		description: "This little mushroom has dark gills.",
+		description: "This little mushroom takes it name from the dark liquid that oozes from its gills.",
 		value: 1
 	},{
 		name: "Apricot Jelly",
@@ -44,7 +44,7 @@ let items = [
 	}, {
 		name: "Porcini",
 		image: "images/porcini.png",
-		description: "This popular mushroom has a rich, nutty taste.",
+		description: "This popular mushroom has a rich, nutty taste. Its name means 'little pig' in italian.",
 		value: 2
 	}, {
 		name: "Black Trumpet",
@@ -59,7 +59,7 @@ let items = [
 	}, {
 		name: "Black Morel",
 		image: "images/blackmorel.png",
-		description: "This mushroom is native to North America.",
+		description: "This dark mushroom is native to North America.",
 		value: 1,
 	},{
 		name: "Destroying Angel",
@@ -120,16 +120,19 @@ let backgrounds = ["images/log.jpg", "images/redgreen (1).png", "images/forest s
 // STATE VARIABLES 
 let inBasket = [];
 let floor = [];
-let timeLeft = 30;
+let inlog = [];
 
 // CACHED ELEMENTS
 let floorDiv = document.querySelector('.forest-floor');
 let basket = document.querySelectorAll('.b');
 
-// info stuff
+// modal stuff
 let info = document.getElementById("information");
 let tally = document.getElementById("tally");
 let start = document.getElementById("start");
+let log = document.getElementById("logbook");
+
+// info stuff 
 let name = document.getElementById("info-name");
 let infoImg = document.getElementById("info-img");
 let infoText = document.getElementById("info-text");
@@ -139,12 +142,14 @@ let startButton = document.getElementById("begin");
 let addButton = document.getElementById("add-button");
 let removeButton = document.getElementById("remove");
 let ignoreButton = document.getElementById("ignore");
-let scoreButton = document.getElementById('scoreButton');
+let scoreButton = document.getElementById('score');
 let repeatButton = document.getElementById('repeat');
+let logButton = document.getElementById('log');
 
 let music = document.querySelector('audio');
 let body = document.querySelector('body');
 let itemization = document.getElementById("score-breakdown");
+let entries = document.getElementById("item-log");
 let currentItem;
 let clock;
 
@@ -159,6 +164,7 @@ removeButton.addEventListener('click', removeBasket);
 ignoreButton.addEventListener('click', goBack);
 scoreButton.addEventListener('click', getScore);
 repeatButton.addEventListener('click', createFloor);
+logButton.addEventListener('click', openLog);
 
 window.onload = function(){start.style.display = "block"};
 
@@ -281,6 +287,9 @@ function pick(event) {
   else if (event.target == tally) {
   	tally.style.display = "none";
   }  
+  else if (event.target == log) {
+  	log.style.display = "none";
+  }  
 }
 
 // adds items to basket and removes them from forest floor
@@ -319,24 +328,60 @@ function goBack () {
 	info.style.display = "none";
 }
 
-// function startTimer () {
-// 	// this starts the timer when the button to play is clicked
-// 	let timeLeft = 30;
-// 	// this should control the timer display
-// 	let clock = setInterval(function(){
-// 		document.querySelector("#seconds").innerHTML = `${timeLeft} second(s) left!`; 
-// 		timeLeft -= 1;
-// 		if (timeLeft == 0) {
-// 			getScore();
-// 		}
-// 	}, 1000);
-// 	// set the actual timer 
-// }
+ // log functions
+function openLog() {
+	while (entries.hasChildNodes()) {
+		entries.removeChild(entries.childNodes[0]);
+	}
+	inlog.forEach((ele) => {
+		//
+		let img = document.createElement('img');
+		img.setAttribute('src', ele.image);
+		entries.appendChild(img);
+		// show name
+		let name = document.createElement('h2');
+		name.innerText = ele.name;
+		entries.appendChild(name);
+		// create show value
+		let value = document.createElement('h2');
+		value.innerText = ele.value;
+		entries.appendChild(value);
+	});
+	log.style.display = "block";
+}
 
+function addEntry() {
+	// if first item of basket not in basket add to log
+	for (pickable of inBasket) {
+		if (!(inlog.includes(pickable)) ) {
+			inlog.push(pickable);
+			return;
+		}
+	}
+}
+
+// end of round scoring functions
+function evaluate(score) {
+	if (score >= 10) {
+		return "People admire you. Mushrooms fear you. Mario himself couldn't match your skill."
+	}
+	else if (score < 0) {
+		return "You picked SO MANY poisonous mushrooms. Your whole family is dying."
+	}
+	else if (score == 0) {
+		return "You might as well not have picked anything."
+	}
+	else if (score > 0 && score <=5 ) {
+		return "You're the kind of person who takes the good with the bad. Unfortunately."
+	}
+	else {
+		return "Your basket is full and so is your heart. Good job!"
+	}
+}
 
 // creates a modal displaying your score
 function getScore () {
-	clearInterval(clock);
+	addEntry();
 	let score = 0;
 	// clear out any previous elements 
 	while (itemization.hasChildNodes()) {
@@ -357,8 +402,11 @@ function getScore () {
 		let value = document.createElement('h2');
 		value.innerText = ele.value;
 		document.getElementById('score-breakdown').appendChild(value);
-
 	});
+	// evaluate how the player did 
+	let evaluation = document.getElementById('eval');
+	evaluation.innerText = evaluate(score);
+
 	// display score screen
 	document.getElementById('final-score').innerText = "Final Score: " + score;
 	tally.style.display = "block";
