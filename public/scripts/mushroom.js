@@ -343,7 +343,7 @@ function openLog() {
 		let img = document.createElement('img');
 		img.setAttribute('src', ele.image);
 		entries.appendChild(img);
-		// show name
+		// show nameg
 		let name = document.createElement('h2');
 		name.innerText = ele.name;
 		entries.appendChild(name);
