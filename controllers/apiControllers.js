@@ -4,9 +4,7 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
 
-// api call to add item to log 
-// api call to get information for profile
-// api call to get items for basket??
+// ----------------- GAMEPLAY (API)
 
 const addLog = (req, res) => {
     db.User.findById(req.params.UserId, (err, currentUser) => {
@@ -28,6 +26,9 @@ const getLog = (req, res) => {
         res.json(currentLog);
     })
 }
+
+
+// api call to get items for basket??
 
 module.exports = {
     addLog,

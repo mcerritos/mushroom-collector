@@ -31,21 +31,23 @@ app.use(bodyParser.json())
 app.use(express.static('public'))
 
 // Express Session - Authentication
-// app.use(session({
-//     // Store the session in our DB
-//     store: new MongoStore({ url: process.env.MONGO_URI }),
-//     secret: process.env.SESSION_SECRET,
-//     resave: false,
-//     saveUninitialized: false, // Only create a session if a property has been added to the session
-//     cookie: {
-//         maxAge: 1000 * 60 * 60 * 24 * 7 // cookie will expire in 1 week
-//     }
-// }))
+app.use(session({
+    // Store the session in our DB
+    store: new MongoStore({ 
+        url: process.env.MONGO_URI || 'mongodb://localhost:27017/mushroom-collector'
+    }),
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false, // Only create a session if a property has been added to the session
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 7 // cookie will expire in 1 week
+    }
+}))
 
 // Routes --------------------------------- //
 const routes = require('./routes');
 
-// app.use('/api/v1/auth', routes.auth)
+app.use('/api/v1/', routes.api)
 app.use('/', routes.views)
 
 

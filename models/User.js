@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Mushroom= require('./Mushroom');
 
 const UserSchema = new mongoose.Schema({
     username: {

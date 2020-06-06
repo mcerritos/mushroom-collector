@@ -1,6 +1,6 @@
-import { Mongoose } from "mongoose";
+const mongoose = require('mongoose');
 
-const MushroomSchema = new Mongoose.Schema({
+const MushroomSchema = new mongoose.Schema({
     name: String,
     image: String,
     description: String,

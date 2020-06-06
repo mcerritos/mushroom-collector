@@ -4,12 +4,15 @@ const router = express.Router();
 const db = require('../models');
 const ctrl = require('../controllers');
 
-// CURRENT PATH = '/api/v1/'
+// ----------------- GAMEPLAY (API)
+router.post('/addLog', ctrl.apiCtrl.addLog);
+router.get('/getLog', ctrl.apiCtrl.getLog);
 
-// // GET Cities Index
-// router.get('/cities', ctrl.citiesCtrl.index);
+// ----------------- AUTH
+router.post('/register', ctrl.authCtrl.register);
+router.post('/login', ctrl.authCtrl.login);
+router.delete('/logout', ctrl.authCtrl.logout);
+router.get('/verify', ctrl.authCtrl.verify);
 
-// // GET Cities Show
-// router.get('/cities/:id', ctrl.citiesCtrl.show);
 
 module.exports = router;
