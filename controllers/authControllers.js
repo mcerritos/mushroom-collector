@@ -84,7 +84,6 @@ const logout = (req, res) => {
 
 const verify = (req, res) => {
     if (!req.session.currentUser) {
-      // Not Authorized
       return res.status(401).json({status: 401, error: 'Unauthorized, please login and try again'});
     }
   

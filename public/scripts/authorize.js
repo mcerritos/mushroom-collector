@@ -26,24 +26,13 @@ function openLogin () {
   loginModal.style.display = "block";
 }
 
-window.onclick = function(event) {
-  if (event.target == registerModal) {
-    registerModal.style.display = "none";
-  }
-  else if (event.target == loginModal) {
-  	loginModal.style.display = "none";
-  }
-}
-
 // api calls
 function register(event) {
 	event.preventDefault();
 	const username = document.getElementById('username').value;
 	const password = document.getElementById('password').value;
-	const email = document.getElementById('email').value;
 	const userData = {
 		username,
-		email,
 		password,
 	};
 
@@ -58,7 +47,9 @@ function register(event) {
 	.then((res) => {
 		if (res.status === 201) {
 			console.log(res);
-			window.location = '/';
+      registerModalBtn.style.display = "none";
+      loginModalBtn.style.display ="none";
+      logoutBtn.style.display = "block";
 		  } 
 		else {
 			console.log(res);
@@ -112,10 +103,8 @@ fetch('/api/v1/verify', {
 
 function getSession(session){
 	if(session.status===200){
-	$('#login').empty();
-	$('#login').html(`Hi ${session.currentUser.username} &nbsp <button id="logoutButton" class="btn btn-outline-primary btn-light" type="submit">Logout</button>`);
+    // add something here later
     }
-    
 	const btn = document.getElementById('logoutButton');
 	btn.addEventListener('click', logout);
 }

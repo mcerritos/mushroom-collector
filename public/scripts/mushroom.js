@@ -174,7 +174,6 @@ window.onload = function(){start.style.display = "block"};
 
 // FUNCTIONS
 
-
 function tutorial () {
 	start.style.display = "none";
 	createFloor();
@@ -296,6 +295,12 @@ function pick(event) {
   }  
   else if (event.target == credits) {
   	credits.style.display = "none";
+  }
+  else if (event.target == registerModal) {
+    registerModal.style.display = "none";
+  }
+  else if (event.target == loginModal) {
+  	loginModal.style.display = "none";
   }
 }
 
@@ -426,3 +431,11 @@ function getScore () {
 	tally.style.display = "block";
 }
 
+// api modal functionality
+function openRegister () {
+	registerModal.style.display = "block";
+  }
+  
+  function openLogin () {
+	loginModal.style.display = "block";
+  }
