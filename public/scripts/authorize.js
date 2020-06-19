@@ -1,13 +1,39 @@
 console.log('Authorize JA is connected!');
 
-// buttons and event listeners 
+// event listeners (modal + api calls)
+let registerModalBtn = document.getElementById("displayRegister");
+let loginModalBtn = document.getElementById("displayLogin");
+let registerModal = document.getElementById("register");
+let loginModal = document.getElementById("login");
+
+registerModalBtn.addEventListener('click', openRegister);
+loginModalBtn.addEventListener('click', openLogin);
+
 const registerBtn = document.getElementById('registerButton');
 const loginBtn = document.getElementById('loginButton');
-const logoutBtn = document.getElementById('logoutbutton');
+const logoutBtn = document.getElementById('logoutButton');
 
 registerBtn.addEventListener('click', register)
 loginBtn.addEventListener('click', login)
 logoutBtn.addEventListener('click', logout)
+
+// modal functionality
+function openRegister () {
+  registerModal.style.display = "block";
+}
+
+function openLogin () {
+  loginModal.style.display = "block";
+}
+
+window.onclick = function(event) {
+  if (event.target == registerModal) {
+    registerModal.style.display = "none";
+  }
+  else if (event.target == loginModal) {
+  	loginModal.style.display = "none";
+  }
+}
 
 // api calls
 function register(event) {
@@ -25,7 +51,7 @@ function register(event) {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-		}
+		},
 		body: JSON.stringify(userData),
 	})
 	.then((stream) => stream.json())
@@ -87,10 +113,10 @@ fetch('/api/v1/verify', {
 function getSession(session){
 	if(session.status===200){
 	$('#login').empty();
-	$('#login').html(`Hi ${session.currentUser.username} &nbsp <button id="logoutbutton" class="btn btn-outline-primary btn-light" type="submit">Logout</button>`);
+	$('#login').html(`Hi ${session.currentUser.username} &nbsp <button id="logoutButton" class="btn btn-outline-primary btn-light" type="submit">Logout</button>`);
     }
     
-	const btn = document.getElementById('logoutbutton');
+	const btn = document.getElementById('logoutButton');
 	btn.addEventListener('click', logout);
 }
 

@@ -1,3 +1,5 @@
+console.log('Mushroom.js is connected!')
+
 // CONSTANTS
 const items = [
 	{
@@ -131,6 +133,7 @@ let tally = document.getElementById("tally");
 let start = document.getElementById("start");
 let log = document.getElementById("logbook");
 let credits = document.getElementById("credits");
+
 
 // info stuff 
 let name = document.getElementById("info-name");

@@ -2,6 +2,7 @@ body {
 	font-family: 'Glass Antiqua';
  	background-color: peru;
 	background-size: cover;
+	
 }
 
 h1, h2, h3, p, a {
@@ -230,6 +231,11 @@ h3 {
 
 .citation {
 	margin: 2vh auto;
+}
+
+a.links {
+	border: none;
+	padding: 0px;
 }
 
 #thank {

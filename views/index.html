@@ -8,45 +8,48 @@
 </head>
 
 <body>
-	<audio autoplay loop> <source src="hidden_cascades_loop.wav" type="audio/wav"> </audio>
+	<audio autoplay loop>
+		<source src="hidden_cascades_loop.wav" type="audio/wav"> </audio>
 
 	<h1>🍄Mushroom Collector🍄</h1>
-	<button id="log">item log</button> <button id="log">login</button> <button id="log">logout</button> 
-	<button id="log">register</button>
+	<button id="log">item log</button>
+	<button id="displayRegister">register</button>
+	<button id="displayLogin">login</button>
+	<button id="logoutButton">logout</button>
 
 	<div class="basket">
 		<h2 id="bHeading">basket</h2>
 		<table id="basketBody">
-			<tr> 
+			<tr>
 				<td> <img class="b" id="b0" src="images/placeholder.png"> </td>
 				<td> <img class="b" id="b1" src="images/placeholder.png"> </td>
 				<td> <img class="b" id="b2" src="images/placeholder.png"> </td>
 			</tr>
-			<tr> 
+			<tr>
 				<td> <img class="b" id="b3" src="images/placeholder.png"> </td>
 				<td> <img class="b" id="b4" src="images/placeholder.png"> </td>
 				<td> <img class="b" id="b5" src="images/placeholder.png"> </td>
 			</tr>
 		</table>
-		<button id="score">Get score!</button>	
+		<button id="score">Get score!</button>
 	</div>
 
 	<div class="forest-floor"></div>
 
 	<div id="information" class="modal">
-	  <div class="modal-content">
-	    <h2 id="info-name">Sample Header</h2>
-	    <img id="info-img" src="">
-	    <p id="info-text"> Sample Text</p>
-	    <button id="add-button"> Add to basket?</button>
-	    <button id="remove"> Remove from basket?</button>
-	    <button id="ignore"> Leave it alone.</button>
-	  </div>
+		<div class="modal-content">
+			<h2 id="info-name">Sample Header</h2>
+			<img id="info-img" src="">
+			<p id="info-text"> Sample Text</p>
+			<button id="add-button"> Add to basket?</button>
+			<button id="remove"> Remove from basket?</button>
+			<button id="ignore"> Leave it alone.</button>
+		</div>
 	</div>
 
 	<div id="register" class="modal">
 		<div class="modal-content">
-		  <h2 id="info-name">Register</h2>
+			<h2 id="info-name">Register</h2>
 			<form id="registerForm">
 				<input id="username" class="form-control mr-2" type="text" placeholder="Username" name="username">
 				<input id="psw" class="form-control mr-2" type="password" placeholder="Password" name="psw">
@@ -57,7 +60,7 @@
 
 	<div id="login" class="modal">
 		<div class="modal-content">
-		  <h2 id="info-name">Login</h2>
+			<h2 id="info-name">Login</h2>
 			<form id=loginForm>
 				<input id="usernameLogin" class="form-control mr-2" type="text" placeholder="Username" name="username">
 				<input id="pswLogin" class="form-control mr-2" type="password" placeholder="Password" name="psw">
@@ -65,51 +68,57 @@
 			</form>
 		</div>
 	</div>
-	
+
 	<div id="tally" class="modal">
-	  <div class="modal-content">
-	  	<h2> 🍄Basket Contents🍄</h2>
-	   	<div id="score-breakdown">
-	   		
-	   	</div>
-	   	<h2 id="final-score">a number</h2>
-	   	<h2 id="eval">an opinion</h2>
-	   	<button id="repeat">Play again?</button>
-	  </div>
+		<div class="modal-content">
+			<h2> 🍄Basket Contents🍄</h2>
+			<div id="score-breakdown">
+
+			</div>
+			<h2 id="final-score">a number</h2>
+			<h2 id="eval">an opinion</h2>
+			<button id="repeat">Play again?</button>
+		</div>
 	</div>
 
 	<div id="logbook" class="modal">
-	  <div class="modal-content">
-	  	<h2 id="log-heading"> 🍄Item Log🍄</h2>
-	   	<div id="item-log"> <!-- don't forget the children of this get deleted!!!  -->
-	   		<h2>You haven't picked any items yet.</h2>
-	   	</div>
-	   	<button id="thank">credits</button>
-	  </div>
-	</div>	
+		<div class="modal-content">
+			<h2 id="log-heading"> 🍄Item Log🍄</h2>
+			<div id="item-log">
+				<!-- don't forget the children of this get deleted!!!  -->
+				<h2>You haven't picked any items yet.</h2>
+			</div>
+			<button id="thank">credits</button>
+		</div>
+	</div>
 
 	<div id="start" class="modal">
-	  <div id="startscreen"   class="modal-content">
-	  	<h2>🍄Before You Play🍄</h2>
-	   	<h5 class="tutorial"> Many treasures can be found deep in the woods. </h5>
-	   	<h5 class="tutorial"> Which are dangerous and which are not? </h5>
-	   	<h5 class="tutorial"> Click on an item to examine it, but be warned: not everything you find should be taken. </h5>
-	   	<h5 class="tutorial"> Your basket can hold only six items... what will you pick? </h5>
-	   	<button id="begin"> Venture into the woods?</button>
-	  </div>
+		<div id="startscreen" class="modal-content">
+			<h2>🍄Before You Play🍄</h2>
+			<h5 class="tutorial"> Many treasures can be found deep in the woods. </h5>
+			<h5 class="tutorial"> Which are dangerous and which are not? </h5>
+			<h5 class="tutorial"> Click on an item to examine it, but be warned: not everything you find should be
+				taken. </h5>
+			<h5 class="tutorial"> Your basket can hold only six items... what will you pick? </h5>
+			<button id="begin"> Venture into the woods?</button>
+		</div>
 	</div>
 
 	<div id="credits" class="modal">
-	  <div id="bib" class="modal-content">
-		<h2>🍄credits🍄</h2>
-		<h3 class="citation">This game was developed by Melody Cerritos, a fullstack engineer with a passion for good design and good mushrooms. Find her here on <a href="https://www.linkedin.com/in/melody-cerritos/">LinkedIn</a> and <a href="https://github.com/mcerritos/mushroom-collector">GitHub.</a></h3>
-	   	<h3 class="citation"> Hidden Cascades is a song by Hunter Van Brocklin</h3>
-	   	<a class="citation" href="https://h-v-b.bandcamp.com/track/hidden-cascades"> You can find his soundcloud here. 🎵</a>
-	  </div>
+		<div id="bib" class="modal-content">
+			<h2>🍄credits🍄</h2>
+			<h3 class="citation">This game was developed by Melody Cerritos, a fullstack engineer with a passion for
+				good design and mushroom stroganoff. Find her here on <a class="links"
+					href="https://www.linkedin.com/in/melody-cerritos/">LinkedIn</a> and <a class="links"
+					href="https://github.com/mcerritos/mushroom-collector">GitHub.</a></h3>
+			<h3 class="citation"> Hidden Cascades is a song by Hunter Van Brocklin</h3>
+			<a class="citation" href="https://h-v-b.bandcamp.com/track/hidden-cascades"> You can find his soundcloud
+				here. 🎵</a>
+		</div>
 	</div>
-		
-<script defer type="text/javascript" src="/scripts/mushroom.js"></script>
-<script defer type="text/javascript" src="/scripts/authorize.js"></script>
+
+	<script defer type="text/javascript" src="/scripts/mushroom.js"></script>
+	<script defer type="text/javascript" src="/scripts/authorize.js"></script>
 
 </body>
 
