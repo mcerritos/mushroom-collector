@@ -1,8 +1,8 @@
 console.log('Authorize JA is connected!');
 
 // buttons and event listeners 
-const registerBtn = document.getElementById('registerbutton');
-const loginBtn = document.getElementById('loginbutton');
+const registerBtn = document.getElementById('registerButton');
+const loginBtn = document.getElementById('loginButton');
 const logoutBtn = document.getElementById('logoutbutton');
 
 registerBtn.addEventListener('click', register)

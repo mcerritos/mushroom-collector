@@ -11,7 +11,8 @@
 	<audio autoplay loop> <source src="hidden_cascades_loop.wav" type="audio/wav"> </audio>
 
 	<h1>🍄Mushroom Collector🍄</h1>
-	<button id="log">item log</button>
+	<button id="log">item log</button> <button id="log">login</button> <button id="log">logout</button> 
+	<button id="log">register</button>
 
 	<div class="basket">
 		<h2 id="bHeading">basket</h2>
@@ -46,14 +47,25 @@
 	<div id="register" class="modal">
 		<div class="modal-content">
 		  <h2 id="info-name">Register</h2>
-		 <form>
-
-		 </form>
+			<form id="registerForm">
+				<input id="username" class="form-control mr-2" type="text" placeholder="Username" name="username">
+				<input id="psw" class="form-control mr-2" type="password" placeholder="Password" name="psw">
+				<button id="registerButton" type="submit">Register</button>
+			</form>
 		</div>
-	  </div>
+	</div>
+
+	<div id="login" class="modal">
+		<div class="modal-content">
+		  <h2 id="info-name">Login</h2>
+			<form id=loginForm>
+				<input id="usernameLogin" class="form-control mr-2" type="text" placeholder="Username" name="username">
+				<input id="pswLogin" class="form-control mr-2" type="password" placeholder="Password" name="psw">
+				<button id="loginButton" type="submit">Login</button>
+			</form>
+		</div>
+	</div>
 	
-
-
 	<div id="tally" class="modal">
 	  <div class="modal-content">
 	  	<h2> 🍄Basket Contents🍄</h2>
