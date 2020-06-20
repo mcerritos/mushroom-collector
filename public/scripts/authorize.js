@@ -50,6 +50,7 @@ function register(event) {
       registerModalBtn.style.display = "none";
       loginModalBtn.style.display ="none";
       logoutBtn.style.display = "block";
+      registerModal.style.display = "none";
 		  } 
 		else {
 			console.log(res);
@@ -81,7 +82,10 @@ function login(event) {
       .then((stream) => stream.json())
       .then((res) => {
         if (res.status === 200) {
-          window.location = '/';
+          registerModalBtn.style.display = "none";
+          loginModalBtn.style.display ="none";
+          logoutBtn.style.display = "block";
+          loginModal.style.display = "none";
         } else {
           console.log(res);
         }
@@ -103,7 +107,9 @@ fetch('/api/v1/verify', {
 
 function getSession(session){
 	if(session.status===200){
-    // add something here later
+    registerModalBtn.style.display = "none";
+    loginModalBtn.style.display ="none";
+    logoutBtn.style.display = "block";
     }
 	const btn = document.getElementById('logoutButton');
 	btn.addEventListener('click', logout);
@@ -121,7 +127,9 @@ function logout(event){
     .then((stream) => stream.json())
     .then((res) => {
       if (res.status === 200) {
-        window.location = '/';
+        registerModalBtn.style.display = "block";
+        loginModalBtn.style.display ="block";
+        logoutBtn.style.display = "none";
       } else {
         console.log(res);
       }
