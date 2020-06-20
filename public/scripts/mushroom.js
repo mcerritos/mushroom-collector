@@ -1,6 +1,7 @@
-// CONSTANTS
+console.log('Mushroom.js is connected!')
 
-let items = [
+// CONSTANTS
+const items = [
 	{
 		name: "Shiitake Mushroom", 
 		image: "images/Shiitake.png",
@@ -132,6 +133,7 @@ let tally = document.getElementById("tally");
 let start = document.getElementById("start");
 let log = document.getElementById("logbook");
 let credits = document.getElementById("credits");
+
 
 // info stuff 
 let name = document.getElementById("info-name");
@@ -294,6 +296,12 @@ function pick(event) {
   else if (event.target == credits) {
   	credits.style.display = "none";
   }
+  else if (event.target == registerModal) {
+    registerModal.style.display = "none";
+  }
+  else if (event.target == loginModal) {
+  	loginModal.style.display = "none";
+  }
 }
 
 // adds items to basket and removes them from forest floor
@@ -343,7 +351,7 @@ function openLog() {
 		let img = document.createElement('img');
 		img.setAttribute('src', ele.image);
 		entries.appendChild(img);
-		// show name
+		// show nameg
 		let name = document.createElement('h2');
 		name.innerText = ele.name;
 		entries.appendChild(name);
@@ -422,3 +430,12 @@ function getScore () {
 	document.getElementById('final-score').innerText = "Final Score: " + score;
 	tally.style.display = "block";
 }
+
+// api modal functionality
+function openRegister () {
+	registerModal.style.display = "block";
+  }
+  
+  function openLogin () {
+	loginModal.style.display = "block";
+  }

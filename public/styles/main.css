@@ -2,6 +2,7 @@ body {
 	font-family: 'Glass Antiqua';
  	background-color: peru;
 	background-size: cover;
+	
 }
 
 h1, h2, h3, p, a {
@@ -38,7 +39,7 @@ button {
 	display:flex;
 	flex-direction: column;
 	align-items: flex-end;
-	margin-top: -15vh;
+	margin-top: -23vh;
 }
 
 #bHeading { /*heading for just the basket*/
@@ -232,8 +233,27 @@ h3 {
 	margin: 2vh auto;
 }
 
+a.links {
+	border: none;
+	padding: 0px;
+}
+
 #thank {
 	z-index: 3;
 	margin-right: 2vw; 
 }
+
+/* auth buttons */
+#logoutButton, #displayLogin, #displayRegister {
+	width: 6vw;
+	padding: 10px 15px;
+	font-size: 20px;
+}
+
+#logoutButton {
+	display: none;
+}
+
+
+
 
