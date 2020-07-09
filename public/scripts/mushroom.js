@@ -407,7 +407,8 @@ function openLog() {
 // adds the first item of the basket to the item log
 function addEntry() {
 	let newMushroom = "";
-	const currentUserId = currentUser.id;
+	const currentUserId = currentUser._id;
+	console.log(currentUserId);
 	// if first item of basket not in basket add to log
 	for (pickable of inBasket) {
 		if (!(inlog.includes(pickable)) ) {
@@ -418,7 +419,7 @@ function addEntry() {
 	}
 	// api call to add to log in the backend 
 	let logData = {
-		user: currentUserId,
+		userId: currentUserId,
 		mushroom: newMushroom, 
 	}
 
