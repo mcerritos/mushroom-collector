@@ -6,7 +6,7 @@ const ctrl = require('../controllers');
 
 // ----------------- GAMEPLAY (API)
 router.post('/addLog', ctrl.apiCtrl.addLog);
-router.get('/getLog', ctrl.apiCtrl.getLog);
+router.post('/getLog', ctrl.apiCtrl.getLog);
 
 // ----------------- AUTH
 router.post('/register', ctrl.authCtrl.register);

@@ -172,6 +172,25 @@ creditsButton.addEventListener('click', openCredits);
 
 window.onload = function(){start.style.display = "block"};
 
+// API CALLS TO SET UP GAME
+let currentUser = {}
+fetch('/api/v1/verify', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'credentials': 'include', // This must be included in all API requests until user logs out
+    },
+
+  })
+    .then((stream) => stream.json())
+    .then(res=> storeData(res))
+	.catch((err) => console.log(err));
+	
+function storeData(res) {
+	currentUser = res.currentUser;
+	console.log(currentUser);
+}
+
 // FUNCTIONS
 
 function tutorial () {
@@ -213,6 +232,7 @@ function arrangeFloor () {
 		let pickable = document.createElement('img');
 		pickable.setAttribute('src', ele.image);
 		pickable.setAttribute('id', "sq" + idx);
+		pickable.setAttribute('name', ele.name )
 		if(idx % 3 == 0) {
 			pickable.classList.add('v-offset');
 		}
@@ -343,15 +363,36 @@ function goBack () {
 
  // log functions
 function openLog() {
+	// const currentUserId = currentUser.id;
+	// const userData = {
+	// 	currentUserId,
+	// }
+	// fetch('api/v1/getLog', {
+	// 	method: 'POST',
+	// 	headers: {
+	// 		'Content-Type': 'application/json',
+	// 		'credentials': 'include',
+	// 	},
+	// 	body: JSON.stringify(userData),
+	// 	})
+	// 	.then(res => console.log(res))
+	// 	// .then((stream) => stream.json())
+	// 	// there's a problem with json conversion of response
+	// 	// .then((res) => {
+	// 	// 	inlog = res;
+	// 	// })
+	// 	.catch( (err) => console.log(err));
+
 	while (entries.hasChildNodes()) {
 		entries.removeChild(entries.childNodes[0]);
 	}
+
 	inlog.forEach((ele) => {
 		//
 		let img = document.createElement('img');
 		img.setAttribute('src', ele.image);
 		entries.appendChild(img);
-		// show nameg
+		// show name
 		let name = document.createElement('h2');
 		name.innerText = ele.name;
 		entries.appendChild(name);
@@ -365,13 +406,32 @@ function openLog() {
 
 // adds the first item of the basket to the item log
 function addEntry() {
+	let newMushroom = "";
+	const currentUserId = currentUser.id;
 	// if first item of basket not in basket add to log
 	for (pickable of inBasket) {
 		if (!(inlog.includes(pickable)) ) {
 			inlog.push(pickable);
-			return;
+			newMushroom = pickable.name;
+			break;
 		}
 	}
+	// api call to add to log in the backend 
+	let logData = {
+		user: currentUserId,
+		mushroom: newMushroom, 
+	}
+
+	fetch('api/v1/addLog', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(logData),
+		})
+		.then((stream) => stream.json())
+		.then((res) => { console.log(res)})
+		.catch((err) => console.log(err));
 }
 
 // opens the credits when the button is clicked 

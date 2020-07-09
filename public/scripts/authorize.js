@@ -27,6 +27,19 @@ function openLogin () {
 }
 
 // api calls
+// function getLog(userData) {
+//   fetch('api/v1/getLog', {
+// 	method: 'GET',
+//   headers: {
+//     'Content-Type': 'application/json',
+//     'credentials': 'include', 
+//   },
+// 	body: JSON.stringify(userData),
+// })
+// .then((stream) => stream.json())
+// .catch((err) => console.log(err));
+// }
+
 function register(event) {
 	event.preventDefault();
 	const username = document.getElementById('username').value;
@@ -69,7 +82,7 @@ function login(event) {
       password,
     };
     
-    console.log('Submitting User Data ---->', userData);
+    console.log('Logging in!', userData);
   
     fetch('/api/v1/login', {
       method: 'POST',
@@ -86,8 +99,9 @@ function login(event) {
           loginModalBtn.style.display ="none";
           logoutBtn.style.display = "block";
           loginModal.style.display = "none";
+          localStorage.setItem('user', username);
         } else {
-          console.log(res);
+          console.log(res.message);
         }
       })
       .catch((err) => console.log(err));
