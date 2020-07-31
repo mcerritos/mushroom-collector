@@ -362,12 +362,12 @@ function goBack () {
 }
 
 // log functions
-function getLogItems() {
+async function getLogItems() {
 	const currentUserId = currentUser.id;
 	const userData = {
 		currentUserId,
 	}
-	fetch('api/v1/getLog', {
+	await fetch('api/v1/getLog', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -381,21 +381,23 @@ function getLogItems() {
 }
 
 function handleLogAPI(res) {
-	console.log(res);
+	console.log("This is the res", res);
 	inLog = res.currentLog;
-	console.log(inLog); 
+	console.log("This is in log", inLog); 
 }
 
  
-function openLog() {
-	getLogItems();
+async function openLog() {
+	await getLogItems();
 	
 	while (entries.hasChildNodes()) {
 		entries.removeChild(entries.childNodes[0]);
 	}
 
-	if (inlog.length > 0) {
-		inlog.forEach((ele) => {
+	console.log("This is the log length:", inlog.length);
+
+	if (inLog.length > 0) {
+		inLog.forEach((ele) => {
 			//
 			let img = document.createElement('img');
 			img.setAttribute('src', ele.image);

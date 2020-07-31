@@ -11,14 +11,10 @@ const addLog = async (req, res) => {
         if (err) {
             return res.status(400).json({status: 400, error: 'Database Error!'});
         }
-        console.log("This is the current user:" + currentUser);
 
         if (currentUser == null) {
             return res.status(400).json({message: "User not found!"});
         }
-
-        console.log(req.params)
-        console.log(req.body)
 
         await db.Mushroom.findOne({name: req.body.mushroom}, async (err, itemToLog) => {
             console.log(itemToLog)
