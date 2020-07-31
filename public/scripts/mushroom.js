@@ -1,120 +1,6 @@
 console.log('Mushroom.js is connected!')
 
 // CONSTANTS
-const items = [
-	{
-		name: "Shiitake Mushroom", 
-		image: "images/Shiitake.png",
-		description: "It has has dark gills and a brown cap. The stems of this mushroom are tough and woody.",
-		value: 1
-	}, {
-		name: "Portabello Mushroom",
-		image: "images/portabello.png",
-		description: "It has a wide, thick cap. In its smaller form, these are called button mushrooms.",
-		value: 1
-	}, {
-		name: "Amanita Mushroom",
-		image: "images/amanita-mushroom.png",
-		description: "This colorful mushroom seems vaguely familiar.",
-		value: -2
-	}, {
-		name: "Morel",
-		image: "images/morchella.png",
-		description: "This mushroom smells like fresh milk. In Kentucky, they call them Hickory Chickens.",
-		value: 1
-	}, {
-		name: "False Morel",
-		image: "images/false_morel (1).png",
-		description: "The smell of this mushroom is faintly floral.",
-		value: -1
-	}, {
-		name: "Chantarelle", 
-		image: "images/chanterelle-mushrooms-1-1 (1).png",
-		description: "It smells like apricots and has a mild peppery taste.",
-		value: 2
-	}, {
-		name: "Inky Cap",
-		image: "images/shaggymane.png",
-		description: "This little mushroom takes it name from the dark liquid that oozes from its gills.",
-		value: 1
-	},{
-		name: "Apricot Jelly",
-		image: "images/apricotjelly.png",
-		description: "This brightly colored mushroom is associated with rotting wood.",
-		value: 1
-	}, {
-		name: "Porcini",
-		image: "images/porcini.png",
-		description: "This popular mushroom has a rich, nutty taste. Its name means 'little pig' in italian.",
-		value: 2
-	}, {
-		name: "Black Trumpet",
-		image: "images/black trumpet.png",
-		description: "This dark mushroom can be difficult to spot.",
-		value: 1
-	}, {
-		name: "Oyster Mushroom",
-		image: "images/oyster.png",
-		description: "This sweet mushroom smells faintly of anise.",
-		value: 1
-	}, {
-		name: "Black Morel",
-		image: "images/blackmorel.png",
-		description: "This dark mushroom is native to North America.",
-		value: 1,
-	},{
-		name: "Destroying Angel",
-		image: "images/deathcap.png",
-		description: "This pure white mushroom has a veil circling the upper stalk.",
-		value: -1,
-	},{
-		name: "Death Cap",
-		image: "images/destroyingangel.png",
-		description: "This mushroom's cap can come in a wide variety of colors.",
-		value: -1,
-	},{
-		name: "Grass",
-		image: "images/grass.png",
-		description: "This is grass.",
-		value: 0,
-	}, {
-		name: "Puffball", 
-		image: "images/puffball.png",
-		description: "These white mushrooms are meaty and round.",
-		value: 1
-	}, {
-		name: "Leek", 
-		image: "images/leek.png",
-		description: "The leaves are green and long.",
-		value: 1
-	}, {
-		name: "Ring", 
-		image: "images/ring (1).png",
-		description: "This seems like it could be valuable.",
-		value: 3
-	}, {
-		name: "Ring", 
-		image: "images/darkring.png",
-		description: "This ring gives off a powerful aura of menace.",
-		value: 3
-	},{
-		name: "Wow! It's nothing.", 
-		image: "images/placeholder.png",
-		description: "There's nothing here.",
-		value: 0
-	}, {
-		name: "Invisible Mushroom", 
-		image: "images/placeholder.png",
-		description: "Just kidding. There's nothing here.",
-		value: 0
-	}, {
-		name: "Yet Another Placeholder", 
-		image: "images/placeholder.png",
-		description: "Actually, there's quite a few atoms here.",
-		value: 0
-	}
-];
-
 let backgrounds = ["images/log.jpg", "images/redgreen (1).png", "images/forest scene.jpg", "images/moss.png",
  "images/moss2.png", "images/fall.png", "images/fall2.png" ];
 
@@ -133,7 +19,6 @@ let tally = document.getElementById("tally");
 let start = document.getElementById("start");
 let log = document.getElementById("logbook");
 let credits = document.getElementById("credits");
-
 
 // info stuff 
 let name = document.getElementById("info-name");
@@ -172,6 +57,25 @@ creditsButton.addEventListener('click', openCredits);
 
 window.onload = function(){start.style.display = "block"};
 
+// API CALLS TO SET UP GAME
+let currentUser = {}
+fetch('/api/v1/verify', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'credentials': 'include', // This must be included in all API requests until user logs out
+    },
+
+  })
+    .then((stream) => stream.json())
+    .then(res=> storeData(res))
+	.catch((err) => console.log(err));
+	
+function storeData(res) {
+	currentUser = res.currentUser;
+	console.log(currentUser);
+}
+
 // FUNCTIONS
 
 function tutorial () {
@@ -197,14 +101,18 @@ function reset () {
 	}
 }
 
-// create new set of pickables 
-function createPickables () {
-	pickablesNum = Math.floor(Math.random() * (7)) + 13;
-
-	for (x = 0; x < 15; x++) {
-		let index = Math.floor(Math.random() * (items.length));
-			floor.push(items[index]);
-	}
+// call the backend to new set of pickables 
+async function createPickables () {
+	let newFloor = await fetch('/api/v1/getFloor', {
+		method: 'GET',
+		headers: {
+		  'Content-Type': 'application/json',
+		  'credentials': 'include', // This must be included in all API requests until user logs out
+		},})
+		.then((stream) => stream.json())
+		.catch((err) => console.log(err));
+		floor = newFloor.floor;
+		// console.log("This is the floor: ", floor );
 }
 
 // add an picture of each element to the forest floor 
@@ -213,6 +121,7 @@ function arrangeFloor () {
 		let pickable = document.createElement('img');
 		pickable.setAttribute('src', ele.image);
 		pickable.setAttribute('id', "sq" + idx);
+		pickable.setAttribute('name', ele.name )
 		if(idx % 3 == 0) {
 			pickable.classList.add('v-offset');
 		}
@@ -226,17 +135,16 @@ function arrangeFloor () {
 	});
 }
 
+async function createFloor () {
+	reset();
 
-function createFloor () {
-	reset ();
-	createPickables();
-	arrangeFloor();
-	
 	// functions to choose random game background 
 	let randomBackground = backgrounds[Math.floor( Math.random() * (backgrounds.length) )];
 	let setting = `url("${randomBackground}")` ;
-	document.querySelector('body').style.backgroundImage = setting ;
-	
+	document.querySelector('body').style.backgroundImage = setting;
+
+	await createPickables();
+	arrangeFloor();
 	let images = document.querySelectorAll('.forest-floor > img');
 	images.forEach((ele) => {
 		ele.addEventListener('click', pick);
@@ -281,26 +189,27 @@ function pick(event) {
 
  // gets you out of the popup
  window.onclick = function(event) {
-  if (event.target == info) {
-    info.style.display = "none";
-  }
-  else if (event.target == start) {
-  	start.style.display = "none";
-  }
-  else if (event.target == tally) {
-  	tally.style.display = "none";
-  }  
-  else if (event.target == log) {
-  	log.style.display = "none";
-  }  
-  else if (event.target == credits) {
-  	credits.style.display = "none";
-  }
-  else if (event.target == registerModal) {
-    registerModal.style.display = "none";
-  }
-  else if (event.target == loginModal) {
-  	loginModal.style.display = "none";
+	if (event.target == info) {
+		info.style.display = "none";
+	}
+	else if (event.target == start) {
+		start.style.display = "none";
+		createFloor();	
+	}
+	else if (event.target == tally) {
+		tally.style.display = "none";
+	}  
+	else if (event.target == log) {
+		log.style.display = "none";
+	}  
+	else if (event.target == credits) {
+		credits.style.display = "none";
+	}
+	else if (event.target == registerModal) {
+		registerModal.style.display = "none";
+	}
+	else if (event.target == loginModal) {
+		loginModal.style.display = "none";
   }
 }
 
@@ -341,61 +250,94 @@ function goBack () {
 	info.style.display = "none";
 }
 
- // log functions
-function openLog() {
+// log functions
+async function getLogItems() {
+	const currentUserId = currentUser.id;
+	const userData = {
+		currentUserId,
+	}
+	await fetch('api/v1/getLog', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			'credentials': 'include',
+		},
+		body: JSON.stringify(userData),
+		})
+		.then((stream) => stream.json())
+		.then(res => handleLogAPI(res))
+		.catch( (err) => console.log(err));
+}
+
+function handleLogAPI(res) {
+	// console.log("This is the res", res);
+	inLog = res.currentLog;
+	// console.log("This is in log", inLog); 
+}
+
+ 
+async function openLog() {
+	await getLogItems();
+	
 	while (entries.hasChildNodes()) {
 		entries.removeChild(entries.childNodes[0]);
 	}
-	inlog.forEach((ele) => {
-		//
-		let img = document.createElement('img');
-		img.setAttribute('src', ele.image);
-		entries.appendChild(img);
-		// show nameg
-		let name = document.createElement('h2');
-		name.innerText = ele.name;
-		entries.appendChild(name);
-		// create show value
-		let value = document.createElement('h2');
-		value.innerText = ele.value;
-		entries.appendChild(value);
-	});
+
+	console.log("This is the log length:", inlog.length);
+
+	if (inLog.length > 0) {
+		inLog.forEach((ele) => {
+			//
+			let img = document.createElement('img');
+			img.setAttribute('src', ele.image);
+			entries.appendChild(img);
+			// show name
+			let name = document.createElement('h2');
+			name.innerText = ele.name;
+			entries.appendChild(name);
+			// create show value
+			let value = document.createElement('h2');
+			value.innerText = ele.value;
+			entries.appendChild(value);
+		});
+	}
+
 	log.style.display = "block";
 }
 
 // adds the first item of the basket to the item log
 function addEntry() {
+	let newMushroom = "";
+	const currentUserId = currentUser._id;
+	console.log(currentUserId);
 	// if first item of basket not in basket add to log
 	for (pickable of inBasket) {
+		if (inlog.length === 0){
+			newMushroom = pickable.name;
+		}
+
 		if (!(inlog.includes(pickable)) ) {
-			inlog.push(pickable);
-			return;
+			// inlog.push(pickable);
+			newMushroom = String(pickable.name);
+			break;
 		}
 	}
-}
+	// api call to add to log in the backend 
+	let logData = {
+		userId: currentUserId,
+		mushroom: newMushroom, 
+	}
 
-// opens the credits when the button is clicked 
-function openCredits() {
-	credits.style.display = "block";
-}
-
-// end of round scoring functions
-function evaluate(score) {
-	if (score >= 10) {
-		return "People admire you. Mushrooms fear you. Mario himself couldn't match your skill."
-	}
-	else if (score < 0) {
-		return "You picked SO MANY poisonous mushrooms. Your whole family is dying."
-	}
-	else if (score == 0) {
-		return "You might as well not have picked anything."
-	}
-	else if (score > 0 && score <=5 ) {
-		return "You're the kind of person who takes the good with the bad. Unfortunately."
-	}
-	else {
-		return "Your basket is full and so is your heart. Good job!"
-	}
+	fetch('api/v1/addLog', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(logData),
+		})
+		.then((stream) => stream.json())
+		.then((res) => { console.log(res)})
+		.catch((err) => console.log(err));
 }
 
 // creates a modal displaying your score
@@ -431,7 +373,30 @@ function getScore () {
 	tally.style.display = "block";
 }
 
-// api modal functionality
+// end of round scoring functions
+function evaluate(score) {
+	if (score >= 10) {
+		return "People admire you. Mushrooms fear you. Mario himself couldn't match your skill."
+	}
+	else if (score < 0) {
+		return "You picked SO MANY poisonous mushrooms. Your whole family is dying."
+	}
+	else if (score == 0) {
+		return "You might as well not have picked anything."
+	}
+	else if (score > 0 && score <=5 ) {
+		return "You're the kind of person who takes the good with the bad. Unfortunately."
+	}
+	else {
+		return "Your basket is full and so is your heart. Good job!"
+	}
+}
+
+// modal functionality
+function openCredits() {
+	credits.style.display = "block";
+}
+
 function openRegister () {
 	registerModal.style.display = "block";
   }

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const random = require('mongoose-simple-random');
 
 const MushroomSchema = new mongoose.Schema({
     name: String,
@@ -6,6 +7,7 @@ const MushroomSchema = new mongoose.Schema({
     description: String,
     value: Number
 });
+MushroomSchema.plugin(random);
 
 const Mushroom = mongoose.model('Mushroom', MushroomSchema);
 
