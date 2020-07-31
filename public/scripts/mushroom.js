@@ -20,7 +20,6 @@ let start = document.getElementById("start");
 let log = document.getElementById("logbook");
 let credits = document.getElementById("credits");
 
-
 // info stuff 
 let name = document.getElementById("info-name");
 let infoImg = document.getElementById("info-img");
@@ -112,14 +111,8 @@ async function createPickables () {
 		},})
 		.then((stream) => stream.json())
 		.catch((err) => console.log(err));
-
 		floor = newFloor.floor;
-		console.log("This is the floor: ", floor );
-}
-
-function setFloor(res) {
-	floor = res.floor;
-	console.log("This is the floor: ", floor );
+		// console.log("This is the floor: ", floor );
 }
 
 // add an picture of each element to the forest floor 
@@ -142,17 +135,16 @@ function arrangeFloor () {
 	});
 }
 
-
 async function createFloor () {
 	reset();
-	await createPickables();
-	arrangeFloor();
-	
+
 	// functions to choose random game background 
 	let randomBackground = backgrounds[Math.floor( Math.random() * (backgrounds.length) )];
 	let setting = `url("${randomBackground}")` ;
-	document.querySelector('body').style.backgroundImage = setting ;
-	
+	document.querySelector('body').style.backgroundImage = setting;
+
+	await createPickables();
+	arrangeFloor();
 	let images = document.querySelectorAll('.forest-floor > img');
 	images.forEach((ele) => {
 		ele.addEventListener('click', pick);
@@ -202,6 +194,7 @@ function pick(event) {
 	}
 	else if (event.target == start) {
 		start.style.display = "none";
+		createFloor();	
 	}
 	else if (event.target == tally) {
 		tally.style.display = "none";
