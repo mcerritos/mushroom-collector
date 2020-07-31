@@ -102,16 +102,24 @@ function reset () {
 	}
 }
 
-// call the backend to get new set of pickables 
+// call the backend to new set of pickables 
 async function createPickables () {
-	
-	
-	pickablesNum = Math.floor(Math.random() * (7)) + 13;
+	let newFloor = await fetch('/api/v1/getFloor', {
+		method: 'GET',
+		headers: {
+		  'Content-Type': 'application/json',
+		  'credentials': 'include', // This must be included in all API requests until user logs out
+		},})
+		.then((stream) => stream.json())
+		.catch((err) => console.log(err));
 
-	for (x = 0; x < 15; x++) {
-		let index = Math.floor(Math.random() * (22));
-			floor.push(items[index]);
-	}
+		floor = newFloor.floor;
+		console.log("This is the floor: ", floor );
+}
+
+function setFloor(res) {
+	floor = res.floor;
+	console.log("This is the floor: ", floor );
 }
 
 // add an picture of each element to the forest floor 
@@ -135,9 +143,9 @@ function arrangeFloor () {
 }
 
 
-function createFloor () {
+async function createFloor () {
 	reset();
-	createPickables();
+	await createPickables();
 	arrangeFloor();
 	
 	// functions to choose random game background 

@@ -56,8 +56,8 @@ const getFloor = (req, res) => {
     let pickablesNum = Math.floor(Math.random() * (7)) + 13;
 
     db.Mushroom.findRandom({}, {}, {limit: pickablesNum}, function(err, results) {
-        if (!err) {
-          console.log(results); // 5 elements
+        if (err) {
+            return res.status(400).json({status: 400, error: 'Floor not found!'});
         }
 
         res.status(200).json({floor: results, message: "Floor established."});
