@@ -52,10 +52,22 @@ const getLog = (req, res) => {
     })
 }
 
+const getFloor = (req, res) => {
+    let pickablesNum = Math.floor(Math.random() * (7)) + 13;
+
+    db.Mushroom.findRandom({}, {}, {limit: pickablesNum}, function(err, results) {
+        if (!err) {
+          console.log(results); // 5 elements
+        }
+
+        res.status(200).json({floor: results, message: "Floor established."});
+      });
+}
 
 // api call to get items for basket??
 
 module.exports = {
     addLog,
     getLog,
+    getFloor,
 }
