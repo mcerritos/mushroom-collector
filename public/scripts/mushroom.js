@@ -248,7 +248,7 @@ function arrangeFloor () {
 
 
 function createFloor () {
-	reset ();
+	reset();
 	createPickables();
 	arrangeFloor();
 	
@@ -361,46 +361,56 @@ function goBack () {
 	info.style.display = "none";
 }
 
- // log functions
-function openLog() {
-	// const currentUserId = currentUser.id;
-	// const userData = {
-	// 	currentUserId,
-	// }
-	// fetch('api/v1/getLog', {
-	// 	method: 'POST',
-	// 	headers: {
-	// 		'Content-Type': 'application/json',
-	// 		'credentials': 'include',
-	// 	},
-	// 	body: JSON.stringify(userData),
-	// 	})
-	// 	.then(res => console.log(res))
-	// 	// .then((stream) => stream.json())
-	// 	// there's a problem with json conversion of response
-	// 	// .then((res) => {
-	// 	// 	inlog = res;
-	// 	// })
-	// 	.catch( (err) => console.log(err));
+// log functions
+function getLogItems() {
+	const currentUserId = currentUser.id;
+	const userData = {
+		currentUserId,
+	}
+	fetch('api/v1/getLog', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			'credentials': 'include',
+		},
+		body: JSON.stringify(userData),
+		})
+		.then((stream) => stream.json())
+		.then(res => handleLogAPI(res))
+		.catch( (err) => console.log(err));
+}
 
+function handleLogAPI(res) {
+	console.log(res);
+	inLog = res.currentLog;
+	console.log(inLog); 
+}
+
+ 
+function openLog() {
+	getLogItems();
+	
 	while (entries.hasChildNodes()) {
 		entries.removeChild(entries.childNodes[0]);
 	}
 
-	inlog.forEach((ele) => {
-		//
-		let img = document.createElement('img');
-		img.setAttribute('src', ele.image);
-		entries.appendChild(img);
-		// show name
-		let name = document.createElement('h2');
-		name.innerText = ele.name;
-		entries.appendChild(name);
-		// create show value
-		let value = document.createElement('h2');
-		value.innerText = ele.value;
-		entries.appendChild(value);
-	});
+	if (inlog.length > 0) {
+		inlog.forEach((ele) => {
+			//
+			let img = document.createElement('img');
+			img.setAttribute('src', ele.image);
+			entries.appendChild(img);
+			// show name
+			let name = document.createElement('h2');
+			name.innerText = ele.name;
+			entries.appendChild(name);
+			// create show value
+			let value = document.createElement('h2');
+			value.innerText = ele.value;
+			entries.appendChild(value);
+		});
+	}
+
 	log.style.display = "block";
 }
 
@@ -411,9 +421,13 @@ function addEntry() {
 	console.log(currentUserId);
 	// if first item of basket not in basket add to log
 	for (pickable of inBasket) {
-		if (!(inlog.includes(pickable)) ) {
-			inlog.push(pickable);
+		if (inlog.length === 0){
 			newMushroom = pickable.name;
+		}
+
+		if (!(inlog.includes(pickable)) ) {
+			// inlog.push(pickable);
+			newMushroom = String(pickable.name);
 			break;
 		}
 	}

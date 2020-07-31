@@ -115,11 +115,11 @@ const items = [
 	}
 ];
 
-db.Mushroom.create(games,(err,newMushrooms)=> {//run it first 
+db.Mushroom.create(items,(err,newMushrooms)=> {//run it first 
 	if(err){
 		console.log(err);
 		process.exit();
     }
     
-    console.log(`${newgames.length} mushrooms added`);
+    console.log(`${newMushrooms.length} mushrooms added`);
 });

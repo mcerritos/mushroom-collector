@@ -6,38 +6,52 @@ app.use(bodyParser.json());
 
 // ----------------- GAMEPLAY (API)
 
-const addLog = (req, res) => {
-    db.User.findOne({id: req.params.userId}, (err, currentUser) => {
+const addLog = async (req, res) => {
+    await db.User.findOne({_id: req.body.userId}, async (err, currentUser) => {
         if (err) {
             return res.status(400).json({status: 400, error: 'Database Error!'});
         }
-        console.log(currentUser);
+        console.log("This is the current user:" + currentUser);
 
         if (currentUser == null) {
             return res.status(400).json({message: "User not found!"});
         }
 
-        db.Mushroom.find({name : req.params.mushroom}, (err, itemToLog) => {
+        console.log(req.params)
+        console.log(req.body)
+
+        await db.Mushroom.findOne({name: req.body.mushroom}, async (err, itemToLog) => {
+            console.log(itemToLog)
             if (err) {
-                return res.status(400).json({status: 400, error: 'Mushroom not found.'});
+                return res.status(400).json({status: 400, error: 'Mushroom database error!'});
             }
-            
-            // cannot read property log of null
+
+            if (itemToLog == null) {
+                return res.status(400).json({message: "Mushroom not found!"});
+            }
+
             currentUser.log.push(itemToLog);
-            res.status(200).json({status: 200, message: 'Mushroom added to log!'});    
+            await currentUser.save();
+
+            const currentLog = currentUser.log;
+            res.status(200).json({message: "Mushroom added!", currentLog: currentLog});
+  
         });       
     })
 }
 
+
 const getLog = (req, res) => {
-    db.User.findById((req.params.id), (err, currentUser) => {
+    db.User.findOne({id: req.params.currentUserId}, (err, currentUser) => {
         if (err) {
             return res.status(400).json({status: 400, error: 'Current user not found.'});
         }
 
+        if (currentUser == null) {
+            return res.status(400).json({message: "User not found!"});
+        }
+
         const currentLog = currentUser.log;
-
-
         res.status(200).json({currentLog: currentLog});
     })
 }
